@@ -703,3 +703,46 @@ userBadge.addEventListener('click', () => {
     document.getElementById('signinPassword').value = '';
   }
 });
+
+
+// ===== PWA: SERVICE WORKER REGISTRATION =====
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('✅ SW registered:', reg.scope))
+      .catch(err => console.log('SW error:', err));
+  });
+}
+
+// ===== PWA: INSTALL PROMPT =====
+let deferredPrompt = null;
+const installBanner = document.getElementById('installBanner');
+const installBtn = document.getElementById('installBtn');
+const installDismiss = document.getElementById('installDismiss');
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // Show banner after a short delay
+  setTimeout(() => installBanner.classList.add('show'), 2000);
+});
+
+installBtn.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  if (outcome === 'accepted') {
+    installBanner.classList.remove('show');
+  }
+  deferredPrompt = null;
+});
+
+installDismiss.addEventListener('click', () => {
+  installBanner.classList.remove('show');
+});
+
+// Hide banner if already installed
+window.addEventListener('appinstalled', () => {
+  installBanner.classList.remove('show');
+  deferredPrompt = null;
+});
