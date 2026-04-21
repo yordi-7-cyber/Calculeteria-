@@ -1,4 +1,4 @@
-# ⚡ CalcEverything v1.0
+# ⚡ CalcJOY v1.0
 
 > A hilariously powerful calculator web app built for everyone — especially for you, Ethiopia 🇪🇹
 
@@ -92,7 +92,7 @@ Rates based on approximate mid-market values, April 2026 (1 USD ≈ 156 ETB).
 ## 🗂️ File Structure
 
 ```
-CalcEverything/
+CalcJOY/
 ├── index.html   — App structure & all UI panels
 ├── style.css    — Main styles, themes, calculator UI
 ├── auth.css     — Liquid Glass sign-in modal styles
@@ -134,4 +134,4 @@ More Ethiopia-specific features coming in v2.
 
 ---
 
-*CalcEverything v1.0 — Zero dependencies. Pure web. All power.*
+*CalcJOY v1.0 — Zero dependencies. Pure web. All power.*
