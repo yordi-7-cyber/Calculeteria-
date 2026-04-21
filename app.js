@@ -587,7 +587,7 @@ document.getElementById('goSignup').addEventListener('click', () => {
 document.getElementById('goSignin').addEventListener('click', () => {
   document.getElementById('signupPanel').classList.add('hidden-panel');
   document.getElementById('signinPanel').classList.remove('hidden-panel');
-  document.querySelector('.auth-title').textContent = 'CALCEVERYTHING';
+  document.querySelector('.auth-title').textContent = 'CALCJOY';
   document.querySelector('.auth-subtitle').textContent = 'Sign in to save your calculations';
 });
 
@@ -746,3 +746,25 @@ window.addEventListener('appinstalled', () => {
   installBanner.classList.remove('show');
   deferredPrompt = null;
 });
+
+
+// ===== LIQUID GLASS PARTICLES =====
+(function spawnParticles() {
+  const container = document.getElementById('authParticles');
+  if (!container) return;
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 6 + 2;
+    p.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      left: ${Math.random() * 100}%;
+      animation-duration: ${Math.random() * 12 + 8}s;
+      animation-delay: ${Math.random() * -15}s;
+      opacity: ${Math.random() * 0.4 + 0.1};
+      background: rgba(${Math.random() > 0.5 ? '245,197,24' : '255,255,255'}, ${Math.random() * 0.3 + 0.1});
+    `;
+    container.appendChild(p);
+  }
+})();
