@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head><title>Icon Generator</title></head>
+<body>
+<canvas id="c192" width="192" height="192"></canvas>
+<canvas id="c512" width="512" height="512"></canvas>
+<br>
+<button onclick="download(192)">Download icon-192.png</button>
+<button onclick="download(512)">Download icon-512.png</button>
+
+<script>
+function drawIcon(size) {
+  const canvas = document.getElementById('c' + size);
+  const ctx = canvas.getContext('2d');
+  const r = size * 0.18;
+
+  // Background
+  const bg = ctx.createLinearGradient(0, 0, size, size);
+  bg.addColorStop(0, '#1a1a2e');
+  bg.addColorStop(1, '#111118');
+  ctx.fillStyle = bg;
+  roundRect(ctx, 0, 0, size, size, size * 0.22);
+  ctx.fill();
+
+  // Yellow glow
+  const glow = ctx.createRadialGradient(size*0.5, size*0.45, 0, size*0.5, size*0.45, size*0.45);
+  glow.addColorStop(0, 'rgba(245,197,24,0.25)');
+  glow.addColorStop(1, 'transparent');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, size, size);
+
+  // ⚡ emoji
+  ctx.font = `${size * 0.42}px serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('⚡', size * 0.5, size * 0.44);
+
+  // "CALC" text
+  ctx.font = `bold ${size * 0.13}px 'Arial', sans-serif`;
+  ctx.fillStyle = '#f5c518';
+  ctx.letterSpacing = '2px';
+  ctx.fillText('CALC', size * 0.5, size * 0.78);
+
+  // Bottom line
+  ctx.strokeStyle = 'rgba(245,197,24,0.4)';
+  ctx.lineWidth = size * 0.012;
+  ctx.beginPath();
+  ctx.moveTo(size * 0.25, size * 0.86);
+  ctx.lineTo(size * 0.75, size * 0.86);
+  ctx.stroke();
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function download(size) {
+  const canvas = document.getElementById('c' + size);
+  const a = document.createElement('a');
+  a.download = `icon-${size}.png`;
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+
+drawIcon(192);
+drawIcon(512);
+</script>
+</body>
+</html>
